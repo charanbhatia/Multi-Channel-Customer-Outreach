@@ -13,10 +13,18 @@
     "type-check": "tsc --noEmit",
     "prepare": "husky install"
   },
-  "keywords": ["unified-inbox", "multi-channel", "customer-outreach", "twilio", "whatsapp", "sms"],
+  "keywords": [
+    "unified-inbox",
+    "multi-channel",
+    "customer-outreach",
+    "twilio",
+    "whatsapp",
+    "sms"
+  ],
   "author": "Attack Capital Assignment",
   "license": "MIT",
   "dependencies": {
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
