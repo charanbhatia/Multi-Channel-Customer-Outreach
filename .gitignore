@@ -2,14 +2,20 @@
 node_modules
 /.pnp
 .pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # Testing
 /coverage
+*.test.ts
+*.spec.ts
 
 # Next.js
 /.next/
 /out/
 next-env.d.ts
+.next
 
 # Production
 /build
@@ -19,39 +25,68 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
 # Environment
 .env
 .env*.local
 .env.development
 .env.production
+.env.test
 
 # Vercel
 .vercel
+*.vercel.json
 
 # TypeScript
 *.tsbuildinfo
+next-env.d.ts
 
 # OS
 .DS_Store
 *.pem
 Thumbs.db
+desktop.ini
 
 # IDE
-.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # Prisma
 prisma/migrations/
 *.db
 *.db-journal
+prisma/*.db
+prisma/*.db-journal
 
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Misc
 .turbo
+.contentlayer
+.cache
+temp/
+tmp/
+
+# Local files
+*.local
+
+# Backup files
+*.backup
+*.bak
+*~
