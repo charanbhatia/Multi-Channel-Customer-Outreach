@@ -1,0 +1,287 @@
+// Prisma Schema for Unified Inbox Multi-Channel Outreach Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// AUTHENTICATION & USER MANAGEMENT
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(VIEWER)
+  teamId        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  team             Team?              @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  sentMessages     Message[]          @relation("MessageSender")
+  notes            Note[]
+  scheduledMessages ScheduledMessage[]
+  sessions         Session[]
+  accounts         Account[]
+
+  @@index([email])
+  @@index([teamId])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum Role {
+  VIEWER
+  EDITOR
+  ADMIN
+}
+
+// ============================================
+// TEAM MANAGEMENT
+// ============================================
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users    User[]
+  contacts Contact[]
+  channels Channel[]
+
+  @@index([slug])
+}
+
+// ============================================
+// CONTACTS
+// ============================================
+
+model Contact {
+  id            String   @id @default(cuid())
+  firstName     String?
+  lastName      String?
+  email         String?
+  phone         String?
+  whatsappPhone String?
+  twitterHandle String?
+  facebookId    String?
+  tags          String[]
+  teamId        String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  team     Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  messages Message[]
+  notes    Note[]
+
+  @@index([teamId])
+  @@index([email])
+  @@index([phone])
+}
+
+// ============================================
+// MESSAGING
+// ============================================
+
+model Message {
+  id          String        @id @default(cuid())
+  content     String
+  channelType ChannelType
+  direction   Direction
+  status      MessageStatus @default(PENDING)
+  metadata    Json?
+  contactId   String
+  senderId    String?
+  channelId   String
+  threadId    String?
+  readAt      DateTime?
+  sentAt      DateTime?
+  deliveredAt DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  sender  User?   @relation("MessageSender", fields: [senderId], references: [id], onDelete: SetNull)
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@index([contactId])
+  @@index([channelId])
+  @@index([threadId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ChannelType {
+  SMS
+  WHATSAPP
+  EMAIL
+  TWITTER
+  FACEBOOK
+  SLACK
+}
+
+enum Direction {
+  INBOUND
+  OUTBOUND
+}
+
+enum MessageStatus {
+  PENDING
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+// ============================================
+// CHANNELS
+// ============================================
+
+model Channel {
+  id          String      @id @default(cuid())
+  name        String
+  type        ChannelType
+  config      Json
+  isActive    Boolean     @default(true)
+  teamId      String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  team     Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@index([teamId])
+  @@index([type])
+}
+
+// ============================================
+// NOTES & COLLABORATION
+// ============================================
+
+model Note {
+  id         String      @id @default(cuid())
+  content    String
+  isPrivate  Boolean     @default(false)
+  contactId  String
+  authorId   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  author  User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([contactId])
+  @@index([authorId])
+}
+
+// ============================================
+// SCHEDULING
+// ============================================
+
+model ScheduledMessage {
+  id          String      @id @default(cuid())
+  content     String
+  channelType ChannelType
+  scheduledFor DateTime
+  status      ScheduleStatus @default(PENDING)
+  metadata    Json?
+  contactId   String
+  createdById String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  createdBy User @relation(fields: [createdById], references: [id], onDelete: Cascade)
+
+  @@index([scheduledFor])
+  @@index([status])
+  @@index([contactId])
+}
+
+enum ScheduleStatus {
+  PENDING
+  SENT
+  CANCELLED
+  FAILED
+}
+
+// ============================================
+// ANALYTICS
+// ============================================
+
+model Analytics {
+  id              String   @id @default(cuid())
+  metricType      String
+  metricValue     Float
+  channelType     ChannelType?
+  aggregationPeriod String
+  periodStart     DateTime
+  periodEnd       DateTime
+  metadata        Json?
+  createdAt       DateTime @default(now())
+
+  @@index([metricType])
+  @@index([channelType])
+  @@index([periodStart, periodEnd])
+}
+
+// ============================================
+// LOGGING & OBSERVABILITY
+// ============================================
+
+model Log {
+  id        String   @id @default(cuid())
+  level     LogLevel
+  message   String
+  context   Json?
+  userId    String?
+  createdAt DateTime @default(now())
+
+  @@index([level])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+enum LogLevel {
+  INFO
+  WARN
+  ERROR
+  DEBUG
+}
