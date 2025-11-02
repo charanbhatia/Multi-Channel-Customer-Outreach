@@ -20,4 +20,3 @@ export interface ChannelSender {
   send(payload: MessagePayload): Promise<MessageResult>;
   validate(payload: MessagePayload): boolean;
 }
-

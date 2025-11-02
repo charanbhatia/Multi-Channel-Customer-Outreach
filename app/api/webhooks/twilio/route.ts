@@ -19,16 +19,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Extract message data
-    const {
-      MessageSid,
-      From,
-      To,
-      Body,
-      NumMedia,
-      MediaUrl0,
-      MessageStatus,
-      SmsStatus,
-    } = body as Record<string, string>;
+    const { MessageSid, From, To, Body, NumMedia, MediaUrl0, MessageStatus, SmsStatus } =
+      body as Record<string, string>;
 
     const isWhatsApp = From.startsWith("whatsapp:") || To.startsWith("whatsapp:");
     const channelType = isWhatsApp ? "WHATSAPP" : "SMS";

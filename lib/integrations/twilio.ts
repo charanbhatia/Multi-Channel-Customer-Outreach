@@ -71,9 +71,7 @@ export class TwilioWhatsAppSender implements ChannelSender {
   }
 
   validate(payload: MessagePayload): boolean {
-    const whatsappTo = payload.to.startsWith("whatsapp:")
-      ? payload.to
-      : `whatsapp:${payload.to}`;
+    const whatsappTo = payload.to.startsWith("whatsapp:") ? payload.to : `whatsapp:${payload.to}`;
     return !!(whatsappTo && payload.content && this.from);
   }
 
@@ -86,9 +84,7 @@ export class TwilioWhatsAppSender implements ChannelSender {
         };
       }
 
-      const whatsappTo = payload.to.startsWith("whatsapp:")
-        ? payload.to
-        : `whatsapp:${payload.to}`;
+      const whatsappTo = payload.to.startsWith("whatsapp:") ? payload.to : `whatsapp:${payload.to}`;
 
       const message = await this.client.messages.create({
         body: payload.content,

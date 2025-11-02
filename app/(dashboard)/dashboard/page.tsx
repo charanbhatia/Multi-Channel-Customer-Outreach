@@ -115,21 +115,11 @@ export default function DashboardPage() {
       <div className="bg-white rounded-lg shadow p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Start</h3>
         <div className="space-y-3">
-          <p className="text-gray-600">
-            ✅ Phase 1: Project Setup - Complete
-          </p>
-          <p className="text-gray-600">
-            ✅ Phase 2: Authentication - Complete
-          </p>
-          <p className="text-gray-500">
-            🔄 Phase 3: Database Configuration - In Progress
-          </p>
-          <p className="text-gray-400">
-            ⏳ Phase 4: Unified Inbox UI - Upcoming
-          </p>
-          <p className="text-gray-400">
-            ⏳ Phase 5: Channel Integrations - Upcoming
-          </p>
+          <p className="text-gray-600">✅ Phase 1: Project Setup - Complete</p>
+          <p className="text-gray-600">✅ Phase 2: Authentication - Complete</p>
+          <p className="text-gray-500">🔄 Phase 3: Database Configuration - In Progress</p>
+          <p className="text-gray-400">⏳ Phase 4: Unified Inbox UI - Upcoming</p>
+          <p className="text-gray-400">⏳ Phase 5: Channel Integrations - Upcoming</p>
         </div>
       </div>
     </div>

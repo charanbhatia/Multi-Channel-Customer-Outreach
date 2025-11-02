@@ -115,7 +115,9 @@ export default function InboxPage() {
                 key={contact.id}
                 onClick={() => setSelectedContact(contact)}
                 className={`w-full p-4 border-b hover:bg-gray-50 text-left transition-colors ${
-                  selectedContact?.id === contact.id ? "bg-blue-50 border-l-4 border-l-blue-600" : ""
+                  selectedContact?.id === contact.id
+                    ? "bg-blue-50 border-l-4 border-l-blue-600"
+                    : ""
                 }`}
               >
                 <div className="font-medium text-gray-900">{getContactName(contact)}</div>
@@ -123,9 +125,7 @@ export default function InboxPage() {
                   {contact.email || contact.phone || ""}
                 </div>
                 <div className="flex gap-2 mt-2">
-                  <span className="text-xs text-gray-500">
-                    {contact._count.messages} messages
-                  </span>
+                  <span className="text-xs text-gray-500">{contact._count.messages} messages</span>
                   <span className="text-xs text-gray-500">•</span>
                   <span className="text-xs text-gray-500">{contact._count.notes} notes</span>
                 </div>
