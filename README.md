@@ -1,20 +1,20 @@
-# 📬 Unified Inbox - Multi-Channel Customer Outreach
+#  Unified Inbox - Multi-Channel Customer Outreach
 
 > **Attack Capital Assignment**: A production-grade unified communication platform built with Next.js 14, TypeScript, and Prisma.
 
-## 🎯 Project Overview
+##  Project Overview
 
 A centralized communication hub that aggregates messages from SMS (Twilio), WhatsApp (Twilio API), Email, and social media platforms into a single collaborative inbox for teams.
 
 ### Key Features
 
-- ✅ **Unified Inbox**: Threaded messages by contact across all channels
-- ✅ **Multi-Channel Support**: SMS, WhatsApp, Email, Twitter/X, Facebook Messenger
-- ✅ **Team Collaboration**: Real-time presence, notes, and @mentions
-- ✅ **Message Scheduling**: Automated follow-ups and campaign scheduling
-- ✅ **Analytics Dashboard**: Engagement metrics, response times, conversion funnels
-- ✅ **Contact Management**: Unified profiles with history and notes
-- ✅ **Role-Based Access**: Viewer, Editor, Admin roles via Better Auth
+-  **Unified Inbox**: Threaded messages by contact across all channels
+-  **Multi-Channel Support**: SMS, WhatsApp, Email, Twitter/X, Facebook Messenger
+-  **Team Collaboration**: Real-time presence, notes, and @mentions
+-  **Message Scheduling**: Automated follow-ups and campaign scheduling
+-  **Analytics Dashboard**: Engagement metrics, response times, conversion funnels
+-  **Contact Management**: Unified profiles with history and notes
+-  **Role-Based Access**: Viewer, Editor, Admin roles via Better Auth
 
 ---
 
@@ -34,7 +34,7 @@ A centralized communication hub that aggregates messages from SMS (Twilio), What
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
@@ -68,7 +68,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 ├── app/                    # Next.js App Router pages
@@ -93,7 +93,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 🗄️ Database Schema
+##  Database Schema
 
 ### Core Entities
 
@@ -121,7 +121,7 @@ erDiagram
 
 ---
 
-## 🔌 Channel Integrations
+##  Channel Integrations
 
 | Channel | Status | Latency | Cost | Reliability |
 |---------|--------|---------|------|-------------|
@@ -139,7 +139,7 @@ erDiagram
 
 ---
 
-## 🔐 Authentication & RBAC
+##  Authentication & RBAC
 
 Powered by **Better Auth** with:
 
@@ -163,7 +163,7 @@ Powered by **Better Auth** with:
 
 ---
 
-## 📊 Analytics & Metrics
+##  Analytics & Metrics
 
 Tracked engagement metrics:
 
@@ -175,7 +175,7 @@ Tracked engagement metrics:
 
 ---
 
-## 🧪 Development Workflow
+##  Development Workflow
 
 ### Available Scripts
 
@@ -205,47 +205,6 @@ chore: upgrade dependencies
 
 ---
 
-## 📋 Development Phases
-
-### ✅ Phase 1: Project Initialization (COMPLETED)
-- [x] Next.js 14 setup with TypeScript
-- [x] Tailwind CSS configuration
-- [x] ESLint + Prettier
-- [x] Git repository initialization
-- [x] Project structure scaffolding
-
-### ✅ Phase 2: Authentication & User Management (COMPLETED)
-- [x] Better Auth integration
-- [x] RBAC implementation (Viewer, Editor, Admin)
-- [x] Google OAuth + Credentials authentication
-- [x] Protected dashboard routes
-- [x] Session management
-
-### ✅ Phase 3: Database & Core Integrations (COMPLETED)
-- [x] Prisma schema design (10+ models)
-- [x] PostgreSQL setup
-- [x] Twilio SMS integration
-- [x] Twilio WhatsApp integration
-- [x] Message sending API
-- [x] Twilio webhook handler
-- [x] Channel abstraction layer
-
-### 🔄 Phase 4: Unified Inbox UI (IN PROGRESS)
-- [ ] Message list component
-- [ ] Contact list component
-- [ ] Message composer
-- [ ] Real-time updates with React Query
-
-### 📅 Upcoming Phases
-- Phase 5: Contact Management & Notes
-- Phase 6: Message Scheduling & Automation
-- Phase 7: Analytics Dashboard
-- Phase 8: Optional Channels (Email, Social)
-- Phase 9: Security & Testing
-- Phase 10: Documentation & Deployment
-
----
-
 ## 🔧 Configuration
 
 ### Environment Variables
@@ -263,7 +222,7 @@ BETTER_AUTH_SECRET="min-32-chars"
 
 ---
 
-## 🏗️ Architecture Decisions
+##  Architecture Decisions
 
 ### 1. **Channel Abstraction Layer**
 Created a unified `ChannelSender` interface to normalize message sending across platforms:
@@ -288,54 +247,3 @@ Single `Message` table with `channelType` and polymorphic `metadata` JSON field.
 **Rationale**: Simplifies querying while preserving channel-specific data.
 
 ---
-
-## 🚢 Deployment
-
-### Recommended Stack
-
-- **Frontend/Backend**: Vercel
-- **Database**: Supabase (managed Postgres) or AWS RDS
-- **Monitoring**: Sentry for error tracking
-- **Logs**: Vercel Analytics + custom DB logging
-
-### Deployment Checklist
-
-- [ ] Set production environment variables
-- [ ] Run database migrations
-- [ ] Configure webhook URLs in Twilio/social platforms
-- [ ] Enable HTTPS for OAuth callbacks
-- [ ] Set up domain and DNS
-- [ ] Configure rate limiting
-
----
-
-## 📚 Additional Resources
-
-- [Twilio Docs](https://www.twilio.com/docs)
-- [Better Auth Docs](https://www.better-auth.com/docs)
-- [Prisma Guides](https://www.prisma.io/docs)
-- [Next.js App Router](https://nextjs.org/docs/app)
-
----
-
-## 📝 License
-
-MIT
-
----
-
-## 👥 Team
-
-Built for **Attack Capital Assignment** by [Your Name]
-
----
-
-## 📞 Support
-
-For questions or issues, email: [your-email@example.com]
-
----
-
-**Last Updated**: November 2, 2025  
-**Phase**: 3/10 - Database & Core Integrations ✅  
-**Next**: Unified Inbox UI
